@@ -15,6 +15,7 @@
 		<script src="js/skel.min.js"></script>
 		<script src="js/skel-layers.min.js"></script>
 		<script src="js/init.js"></script>
+		<script type="text/javascript" src="http://cdn.knightlab.com/libs/timeline/latest/js/timeline.js"></script>
 		<noscript>
 			<link rel="stylesheet" href="css/skel.css" />
 			<link rel="stylesheet" href="css/style.css" />
@@ -41,7 +42,24 @@
 					<p>has been rapidly expanding in recent years; rivaling that of the United States. In 2014 alone, China launched seven of what western military experts believe are spy satellites. There are still more than twice as many US spy satellites, but half of those were launched before 2009. More than half of China's active spy satellites were launched between 2011 and 2014.</p>
 				</header>
 				<div class="container">
-					<iframe src='http://cdn.knightlab.com/libs/timeline/latest/embed/index.html?source=0Ao_EBAWCoINldDZBV242S0t3cnFwbEhDRkJuRUhXcmc&font=DroidSerif-DroidSans&maptype=toner&lang=en&height=650' width='100%' height='650' frameborder='0'></iframe>
+					<div id="timeline-embed"></div>
+    					<script type="text/javascript">
+        					var timeline_config = {
+            				width:              '100%',
+            				height:             '600',
+            				source:             'https://docs.google.com/spreadsheet/pub?key=0Ao_EBAWCoINldDZBV242S0t3cnFwbEhDRkJuRUhXcmc&output=html',
+            					embed_id:           'timeline-embed',               //OPTIONAL USE A DIFFERENT DIV ID FOR EMBED
+            					start_at_end:       false,                          //OPTIONAL START AT LATEST DATE
+            					start_at_slide:     '0',                            //OPTIONAL START AT SPECIFIC SLIDE
+            					start_zoom_adjust:  '0',                            //OPTIONAL TWEAK THE DEFAULT ZOOM LEVEL
+            					hash_bookmark:      false,                           //OPTIONAL LOCATION BAR HASHES
+            					font:               'Helvetica Neue',             //OPTIONAL FONT
+            					debug:              true,                           //OPTIONAL DEBUG TO CONSOLE
+            					lang:               'en',                           //OPTIONAL LANGUAGE
+            					css:                'css/timeline.css',     //OPTIONAL PATH TO CSS
+        					}
+    					</script>
+    					<script type="text/javascript" src="http://cdn.knightlab.com/libs/timeline/latest/js/storyjs-embed.js"></script>
 				</div>
 		<!-- Two -->
 			<section id="two" class="wrapper style2">
