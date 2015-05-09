@@ -15,7 +15,7 @@
 		<script src="js/skel.min.js"></script>
 		<script src="js/skel-layers.min.js"></script>
 		<script src="js/init.js"></script>
-		<script type="text/javascript" src="http://cdn.knightlab.com/libs/timeline/latest/js/timeline.js"></script>
+		<script src="js/mytimeline.js"></script>
 		<noscript>
 			<link rel="stylesheet" href="css/skel.css" />
 			<link rel="stylesheet" href="css/style.css" />
@@ -49,15 +49,16 @@
             				width:              '100%',
             				height:             '600',
             				source:             'https://docs.google.com/spreadsheet/pub?key=0Ao_EBAWCoINldDZBV242S0t3cnFwbEhDRkJuRUhXcmc&output=html',
-            					embed_id:           'timeline-embed',               //OPTIONAL USE A DIFFERENT DIV ID FOR EMBED
-            					start_at_end:       false,                          //OPTIONAL START AT LATEST DATE
-            					start_at_slide:     '0',                            //OPTIONAL START AT SPECIFIC SLIDE
-            					start_zoom_adjust:  '0',                            //OPTIONAL TWEAK THE DEFAULT ZOOM LEVEL
-            					hash_bookmark:      false,                           //OPTIONAL LOCATION BAR HASHES
-            					font:               'Helvetica Neue',             //OPTIONAL FONT
-            					debug:              true,                           //OPTIONAL DEBUG TO CONSOLE
-            					lang:               'en',                           //OPTIONAL LANGUAGE
-            					css:                'css/mytimeline.css',     //OPTIONAL PATH TO CSS
+            					embed_id:           'timeline-embed',
+            					start_at_end:       false,                        
+            					start_at_slide:     '0',                    
+            					start_zoom_adjust:  '0',
+            					hash_bookmark:      false,
+            					font:               'Helvetica Neue',
+            					debug:              true,
+            					lang:               'en',
+            					css:                'css/mytimeline.css',
+            					js:                 'js/timeline.js', 
         					}
     					</script>
     					<script type="text/javascript" src="http://cdn.knightlab.com/libs/timeline/latest/js/storyjs-embed.js"></script>
