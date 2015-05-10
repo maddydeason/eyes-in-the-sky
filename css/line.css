@@ -1,0 +1,33 @@
+
+ .lnchart {
+    font-size: 10px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #423536;
+}
+
+.axis path, .axis line {
+    fill: none;
+    stroke: #A59891;
+    shape-rendering: crispEdges;
+}
+
+.x.axis path {
+    display: none;
+}
+
+.line {
+    fill: none;
+    stroke: #0050FF;
+    stroke-width: 3.5px;
+}
+
+#methodology {
+    border: 1px solid #423536;
+    font-size: 2em;
+    width: 100%;
+    text-align: left;
+    padding: .5em;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    color: #423536;
+}
