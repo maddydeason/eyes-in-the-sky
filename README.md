@@ -1,6 +1,8 @@
-# Eyes in the Sky
-final project for JOUR779D: Storytelling with Data Visualization
+# eyes-in-the-Sky
+Eyes in the Sky: China's Rapidly Expanding Space-based Spy Program
 <br>
+
+final project for JOUR779D: Storytelling with Data Visualization
 ## Contributors
 Reporting: Madeleine Deason, Stephanie Gutierrez-Munguia, Deidre McPhillips 
 <br>
