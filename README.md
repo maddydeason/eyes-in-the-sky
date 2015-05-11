@@ -1,7 +1,7 @@
 # Eyes in the Sky
 final project for JOUR779D: Storytelling with Data Visualization
 <br>
-# Contributors
+## Contributors
 Reporting: Madeleine Deason, Stephanie Gutierrez-Munguia, Deidre McPhillips 
 <br>
 Text, Map: Deidre McPhillips 
@@ -9,3 +9,6 @@ Text, Map: Deidre McPhillips
 Line Graph, Bar Chart: Stephanie Gutierrez-Munguia 
 <br>
 Timeline, Webpage: Madeleine Deason
+
+### Live version
+< coming soon >
