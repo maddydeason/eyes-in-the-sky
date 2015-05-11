@@ -1,4 +1,4 @@
-# eyes-in-the-Sky
+# eyes-in-the-sky
 Eyes in the Sky: China's Rapidly Expanding Space-based Spy Program
 <br>
 
