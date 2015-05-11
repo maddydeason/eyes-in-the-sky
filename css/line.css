@@ -20,14 +20,3 @@
     stroke: #0050FF;
     stroke-width: 3.5px;
 }
-
-#methodology {
-    border: 1px solid #423536;
-    font-size: 2em;
-    width: 100%;
-    text-align: left;
-    padding: .5em;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    line-height: 1.5;
-    color: #423536;
-}
