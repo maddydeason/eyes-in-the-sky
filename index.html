@@ -73,7 +73,10 @@
 				</header>
 				<div class="container">
                     <iframe width='100%' height='520' frameborder='0' src='https://deedrah.cartodb.com/viz/78a97128-f7cf-11e4-8e9b-0e8dde98a187/embed_map' allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
-					<p><br>The United States and China lead the world with reconnaissance -- or spy -- satellites, or those that are used to collect intelligence information on military and other activities of foreign countries. Together, they account for 75 percent of the spy satellites currently in orbit. China alone operates two and a half times more spy satellites than all European nations combined. As more and more satellites are launched, it becomes a literal battle for space -- with China on the offense. </p>
+					<p><br>The United States and China lead the world with reconnaissance -- or spy -- satellites, or those that are used to collect intelligence information on military and other activities of foreign countries. Together, the two countries account for 75 percent of the spy satellites currently in orbit. </p>
+                    <p>According to Joan Johnson-Freese, a National Securities Affairs professor at the U.S. Naval War College, China “has been expanding its military space capabilities to include most of the capabilities already possessed by the United States, including reconnaissance.”</p>
+                    <p>China alone operates two and a half times more spy satellites than all European nations combined. As more and more satellites are launched, it becomes a literal battle for space -- with China on the offense.</p>
+                    <p>“In short, China has come to the same realization as the U.S. and Russia that space capabilities are crucial to be a regional or global power,” said Brian Weeden, technical advisor at Secure World Foundation, an organization with a mission to promote cooperative solutions for sustainability in space.  “I think the driver is the same as it is for many other countries - a growing need for intelligence data to support national decision-making and also warfighting.”  </p>
 				</div>
 			</section>
 
@@ -83,292 +86,295 @@
 					<div class="row">
 						<div class="6u">
 							<section>
-								<h3>Spy Satellites Launched by USA and China Since 2004</h3>
-								<link rel="stylesheet" href="css/line.css"/>
-								<div class="lnchart">
-								<script>
-            						var data = [{
-                						"date": "2004",
-                    					"USA": "1",
-                    					"China*": "1"
-            						}, {
-                						"date": "2005",
-                    					"USA": "5",
-                    					"China*": "0"
-            						}, {
-                						"date": "2007",
-                    					"USA": "3",
-                    					"China*": "0"
-            						}, {
-                						"date": "2008",
-                    					"USA": "1",
-                    					"China*": "0"
-            						}, {
-                						"date": "2009",
-                    					"USA": "1",
-                    					"China*": "3"
-            						}, {
-                						"date": "2010",
-                    					"USA": "3",
-                    					"China*": "5"
-            						}, {
-                						"date": "2011",
-                    					"USA": "8",
-                    					"China*": "0"
-            						}, {
-                						"date": "2012",
-                    					"USA": "6",
-                    					"China*": "3"
-            						}, {
-                						"date": "2013",
-                    					"USA": "4",
-                    					"China*": "4"
-            						}, {
-                						"date": "2014",
-                    					"USA": "5",
-                    					"China*": "7"
-            						}];
-            						var margin = {
-                						top: 20,
-                						right: 80,
-                						bottom: 40,
-                						left: 30
-            						},
-            						width = 480 - margin.left - margin.right,
-                						height = 300 - margin.top - margin.bottom;
+								<h3>Number of Active Satellites by Type</h3>
+                                <link rel="stylesheet" href="css/bar.css"/>
+                                <svg class="chart"></svg>
+                                <script type="text/javascript">
+                                //Adapted code from http://bl.ocks.org/erikvullings/51cc5332439939f1f292
+                                var data = {
+                                    labels: [
+                                        'Communications', 'Earth Observation', 'Technology Development', 'Spy*', 'Navigation', 'Maritime Tracking', 'Space Observation', 'Research', 'Earth Science'
+                                    ],
+                                    series: [
+                                        {
+                                            label: '',
+                                            values: [664, 309, 143, 102, 96, 5, 5, 3, 2]
+                                        },]
+                                };
 
-            						var parseDate = d3.time.format("%Y").parse;
+                                var chartWidth       = 250,
+                                barHeight        = 20,
+                                groupHeight      = barHeight * data.series.length,
+                                gapBetweenGroups = 10,
+                                spaceForLabels   = 150,
+                                spaceForLegend   = 0;
 
-            						var x = d3.time.scale()
-                						.range([0, width]);
+                                // Zip the series data together (first values, second values, etc.)
+                                var zippedData = [];
+                                for (var i=0; i<data.labels.length; i++) {
+                                for (var j=0; j<data.series.length; j++) {
+                                zippedData.push(data.series[j].values[i]);
+                                    }
+                                }
+        
+                                // Color scale
+                                var color = d3.scale.category20b();
+                                var chartHeight = barHeight * zippedData.length + gapBetweenGroups * data.labels.length;
 
-            						var y = d3.scale.linear()
-                						.range([height, 0]);
+                                var x = d3.scale.linear()
+                                    .domain([0, d3.max(zippedData)])
+                                    .range([0, chartWidth]);
 
-           							var color = d3.scale.ordinal()
-              							.domain(["USA", "China*"])
-              							.range(["#A3EEFF", "#0050FF"]);
+                                var y = d3.scale.linear()
+                                    .range([chartHeight + gapBetweenGroups, 0]);
 
-            						var xAxis = d3.svg.axis()
-                						.scale(x)
-                						.orient("bottom");
+                                var yAxis = d3.svg.axis()
+                                    .scale(y)
+                                    .tickFormat('')
+                                    .tickSize(0)
+                                    .orient("left");
 
-            						var yAxis = d3.svg.axis()
-                						.scale(y)
-                						.orient("left");
+                                // Specify the chart area and dimensions
+                                var chart = d3.select(".chart")
+                                    .attr("width", spaceForLabels + chartWidth + spaceForLegend)
+                                    .attr("height", chartHeight);
 
-            						var line = d3.svg.line()
-                						.interpolate("basis")
-                						.x(function (d) {
-                						return x(d.date);
-            						})
-                					.y(function (d) {
-                						return y(d.temperature);
-            						});
+                                // Create bars
+                                var bar = chart.selectAll("g")
+                                    .data(zippedData)
+                                    .enter().append("g")
+                                    .attr("transform", function(d, i) {
+                                        return "translate(" + spaceForLabels + "," + (i * barHeight + gapBetweenGroups * (0.5 + Math.floor(i/data.series.length))) + ")";
+                                });
 
-            						var svg = d3.select("div.lnchart").append("svg")
-                						.attr("width", width + margin.left + margin.right)
-                						.attr("height", height + margin.top + margin.bottom)
-                						.append("g")
-                						.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+                                // Create rectangles of the correct width
+                                bar.append("rect")
+                                    .attr("fill", function(d,i) { return color(i % data.series.length); })
+                                    .attr("class", "bar")
+                                    .attr("width", x)
+                                    .attr("height", barHeight - 1)
+                                    .style("fill", function(d) {
+                                        if (d == 102) {
+                                        return "#0050FF"
+                                        } else {
+                                            return "#423536"
+                                        };
+                                });
 
-            						color.domain(d3.keys(data[0]).filter(function (key) {
-                						return key !== "date";
-            						}));
+                                // Add text label in bar
+                                bar.append("text")
+                                    .attr("x", function(d) { return x(d) + 20; })
+                                    .attr("y", barHeight / 2)
+                                    .attr("fill", "red")
+                                    .attr("dy", ".25em")
+                                    .text(function(d) { return d + " "; });
 
-            						data.forEach(function (d) {
-                						d.date = parseDate(d.date);
-            						});
+                                // Draw labels
+                                bar.append("text")
+                                    .attr("class", "label")
+                                    .attr("x", function(d) { return - 10; })
+                                    .attr("y", groupHeight / 2)
+                                    .attr("dy", ".25em")
+                                    .text(function(d,i) {
+                                        if (i % data.series.length === 0)
+                                            return data.labels[Math.floor(i/data.series.length)];
+                                        else
+                                            return ""});
 
-            						var cities = color.domain().map(function (name) {
-                						return {
-                    						name: name,
-                    						values: data.map(function (d) {
-                        						return {
-                            					date: d.date,
-                            					temperature: +d[name]
-                        						};
-                    						})
-                						};
-            						});
+                                chart.append("g")
+                                    .attr("class", "y axis")
+                                    .attr("transform", "translate(" + spaceForLabels + ", " + -gapBetweenGroups/2 + ")")
+                                    .call(yAxis);
+                                </script>
+                                <p class= "methodology">Source: Union of Concerned Scientists Satellite Database<br>Satellites may be included in multiple categories.<br>* Some satellites in this category are not confirmed, but highly suspected by western military, to have spy functions.</p>
 
-            						x.domain(d3.extent(data, function (d) {
-                							return d.date;
-            						}));
-
-            						y.domain([
-            							d3.min(cities, function (c) {
-                						return d3.min(c.values, function (v) {
-                    						return v.temperature;
-                						});
-            						}),
-            						d3.max(cities, function (c) {
-                						return d3.max(c.values, function (v) {
-                    						return v.temperature;
-                						});
-            						})]);
-
-            						svg.append("g")
-                						.attr("class", "x axis")
-                						.attr("transform", "translate(0," + height + ")")
-                						.call(xAxis);
-
-            						svg.append("g")
-                						.attr("class", "y axis")
-                						.call(yAxis)
-                						.append("text")
-                						.attr("transform", "rotate(-90)")
-                						.attr("y", 6)
-                						.attr("dy", ".71em")
-                						.style("text-anchor", "end")
-                						.text("Number of Satellites");
-
-            						var city = svg.selectAll(".city")
-                						.data(cities)
-                						.enter().append("g")
-                						.attr("class", "city");
-
-            						city.append("path")
-                						.attr("class", "line")
-                						.attr("d", function (d) {
-                						return line(d.values);
-            							})
-                						.style("stroke", function (d) {
-                						return color(d.name);
-            						});
-
-            						city.append("text")
-                						.datum(function (d) {
-                							return {
-                    							name: d.name,
-                    							value: d.values[d.values.length - 1]
-                							};
-            							})
-                						.attr("transform", function (d) {
-                							return "translate(" + x(d.value.date) + "," + y(d.value.temperature) + ")";
-            							})
-                						.attr("x", 3)
-                						.attr("dy", ".35em")
-                						.text(function (d) {
-                							return d.name;
-            							});
-    							</script>
-    						</div>
-    							<div class= "methodology">Source: Union of Concerned Scientists Satellite Database <br> Data includes only satellites that are still active.<br> * Some satellites in this category are not confirmed, but highly suspected by western military, to have spy functions. </div>
-
-								<p>China has regularly launched satellites in pairs or triplets in recent years, with functionalities ranging from broad, real-time video Earth imaging to an Automatic Identification System for relaying specific ship location information. In a 2013 annual report to Congress on military and security developments involving the People’s Republic of China, the U.S. Department of Defense said that the Pentagon has been monitoring China’s space activities, which show no sign of slowing. NASA and the Department of Defense did not respond to requests for comment.</p>
+								<p>China has regularly launched satellites in pairs or triplets in recent years, with functionalities ranging from broad, real-time video Earth imaging to an Automatic Identification System for relaying specific ship location information. Satellite and other space launches must be reported to the United Nations Registry of Space Objects by spacefaring nations, but inaccurate or otherwise incomplete data -- like vague purpose definitions -- can raise many questions. Reconnaissance satellites, for example, could be listed as communications or Earth observation satellites. Many satellites also serve multiple purposes while in orbit, and any movement or change risks wrong interpretations.</p> 
+                                <p>“The danger of dual use technology is that a security dilemma can be created where countries take actions to technologically keep up or go ahead of other countries, even though those actions may not be in its long-term interests. Subsequently, chances of crisis escalation increase while trust among countries decrease,” said Johnson-Freese.</p>
+                                <p>The danger of dual use technology is that a security dilemma can be created where countries take actions to technologically keep up or go ahead of other countries, even though those actions may not be in its long-term interests. Subsequently, chances of crisis escalation increase while trust among countries decrease.</p>
 							</section>
 						</div>
 						<div class="6u">
 							<section>
-								<h3>Number of Active Satellites by Type</h3>
-								<link rel="stylesheet" href="css/bar.css"/>
-								<svg class="chart"></svg>
-  								<script type="text/javascript">
-    							//Adapted code from http://bl.ocks.org/erikvullings/51cc5332439939f1f292
-    							var data = {
-          							labels: [
-        								'Communications', 'Earth Observation', 'Technology Development', 'Spy*', 'Navigation', 'Maritime Tracking', 'Space Observation', 'Research', 'Earth Science'
-          							],
-          							series: [
-            							{
-              								label: '',
-              								values: [664, 309, 143, 102, 96, 5, 5, 3, 2]
-            							},]
-        						};
+                                <h3>Spy Satellites Launched by USA and China Since 2004</h3>
+                                <link rel="stylesheet" href="css/line.css"/>
+                                <div class="lnchart">
+                                <script>
+                                    var data = [{
+                                        "date": "2004",
+                                        "USA": "1",
+                                        "China*": "1"
+                                    }, {
+                                        "date": "2005",
+                                        "USA": "5",
+                                        "China*": "0"
+                                    }, {
+                                        "date": "2007",
+                                        "USA": "3",
+                                        "China*": "0"
+                                    }, {
+                                        "date": "2008",
+                                        "USA": "1",
+                                        "China*": "0"
+                                    }, {
+                                        "date": "2009",
+                                        "USA": "1",
+                                        "China*": "3"
+                                    }, {
+                                        "date": "2010",
+                                        "USA": "3",
+                                        "China*": "5"
+                                    }, {
+                                        "date": "2011",
+                                        "USA": "8",
+                                        "China*": "0"
+                                    }, {
+                                        "date": "2012",
+                                        "USA": "6",
+                                        "China*": "3"
+                                    }, {
+                                        "date": "2013",
+                                        "USA": "4",
+                                        "China*": "4"
+                                    }, {
+                                        "date": "2014",
+                                        "USA": "5",
+                                        "China*": "7"
+                                    }];
+                                    var margin = {
+                                        top: 20,
+                                        right: 80,
+                                        bottom: 40,
+                                        left: 30
+                                    },
+                                    width = 480 - margin.left - margin.right,
+                                        height = 300 - margin.top - margin.bottom;
 
-       							var chartWidth       = 250,
-            					barHeight        = 20,
-            					groupHeight      = barHeight * data.series.length,
-            					gapBetweenGroups = 10,
-            					spaceForLabels   = 150,
-            					spaceForLegend   = 0;
+                                    var parseDate = d3.time.format("%Y").parse;
 
-        						// Zip the series data together (first values, second values, etc.)
-        						var zippedData = [];
-        						for (var i=0; i<data.labels.length; i++) {
-          						for (var j=0; j<data.series.length; j++) {
-            					zippedData.push(data.series[j].values[i]);
-          							}
-        						}
-        
-								// Color scale
-        						var color = d3.scale.category20b();
-        						var chartHeight = barHeight * zippedData.length + gapBetweenGroups * data.labels.length;
+                                    var x = d3.time.scale()
+                                        .range([0, width]);
 
-        						var x = d3.scale.linear()
-            						.domain([0, d3.max(zippedData)])
-            						.range([0, chartWidth]);
+                                    var y = d3.scale.linear()
+                                        .range([height, 0]);
 
-        						var y = d3.scale.linear()
-            						.range([chartHeight + gapBetweenGroups, 0]);
+                                    var color = d3.scale.ordinal()
+                                        .domain(["USA", "China*"])
+                                        .range(["#A3EEFF", "#0050FF"]);
 
-        						var yAxis = d3.svg.axis()
-            						.scale(y)
-           							.tickFormat('')
-            						.tickSize(0)
-            						.orient("left");
+                                    var xAxis = d3.svg.axis()
+                                        .scale(x)
+                                        .orient("bottom");
 
-        						// Specify the chart area and dimensions
-        						var chart = d3.select(".chart")
-            						.attr("width", spaceForLabels + chartWidth + spaceForLegend)
-            						.attr("height", chartHeight);
+                                    var yAxis = d3.svg.axis()
+                                        .scale(y)
+                                        .orient("left");
 
-        						// Create bars
-        						var bar = chart.selectAll("g")
-            						.data(zippedData)
-            						.enter().append("g")
-            						.attr("transform", function(d, i) {
-              							return "translate(" + spaceForLabels + "," + (i * barHeight + gapBetweenGroups * (0.5 + Math.floor(i/data.series.length))) + ")";
-            					});
+                                    var line = d3.svg.line()
+                                        .interpolate("basis")
+                                        .x(function (d) {
+                                        return x(d.date);
+                                    })
+                                    .y(function (d) {
+                                        return y(d.temperature);
+                                    });
 
-        						// Create rectangles of the correct width
-        						bar.append("rect")
-            						.attr("fill", function(d,i) { return color(i % data.series.length); })
-            						.attr("class", "bar")
-            						.attr("width", x)
-            						.attr("height", barHeight - 1)
-            						.style("fill", function(d) {
-               							if (d == 102) {
-               							return "#0050FF"
-               							} else {
-               								return "#423536"
-               							};
-								});
+                                    var svg = d3.select("div.lnchart").append("svg")
+                                        .attr("width", width + margin.left + margin.right)
+                                        .attr("height", height + margin.top + margin.bottom)
+                                        .append("g")
+                                        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-        						// Add text label in bar
-        						bar.append("text")
-            						.attr("x", function(d) { return x(d) + 20; })
-            						.attr("y", barHeight / 2)
-            						.attr("fill", "red")
-            						.attr("dy", ".25em")
-            						.text(function(d) { return d + " "; });
+                                    color.domain(d3.keys(data[0]).filter(function (key) {
+                                        return key !== "date";
+                                    }));
 
-        						// Draw labels
-        						bar.append("text")
-           							.attr("class", "label")
-            						.attr("x", function(d) { return - 10; })
-            						.attr("y", groupHeight / 2)
-            						.attr("dy", ".25em")
-            						.text(function(d,i) {
-              							if (i % data.series.length === 0)
-                							return data.labels[Math.floor(i/data.series.length)];
-              							else
-                							return ""});
+                                    data.forEach(function (d) {
+                                        d.date = parseDate(d.date);
+                                    });
 
-        						chart.append("g")
-              						.attr("class", "y axis")
-              						.attr("transform", "translate(" + spaceForLabels + ", " + -gapBetweenGroups/2 + ")")
-              						.call(yAxis);
-								</script>
-								<p class= "methodology">Source: Union of Concerned Scientists Satellite Database<br>Satellites may be included in multiple categories.<br>* Some satellites in this category are not confirmed, but highly suspected by western military, to have spy functions.</p>
+                                    var cities = color.domain().map(function (name) {
+                                        return {
+                                            name: name,
+                                            values: data.map(function (d) {
+                                                return {
+                                                date: d.date,
+                                                temperature: +d[name]
+                                                };
+                                            })
+                                        };
+                                    });
 
-								<p>Satellite and other space launches must be reported to the United Nations Registry of Space Objects by spacefaring nations. The Union of Concerned Scientists, an independent non-profit organization, compiles this information and makes it available to the public. But inaccurate or otherwise incomplete data -- like vague purpose definitions -- can raise many questions. Reconnaissance satellites, for example, could be listed as communications or Earth observation satellites. Many satellites also serve multiple purposes while in orbit, and any movement or change risks wrong interpretations.</p>
+                                    x.domain(d3.extent(data, function (d) {
+                                            return d.date;
+                                    }));
+
+                                    y.domain([
+                                        d3.min(cities, function (c) {
+                                        return d3.min(c.values, function (v) {
+                                            return v.temperature;
+                                        });
+                                    }),
+                                    d3.max(cities, function (c) {
+                                        return d3.max(c.values, function (v) {
+                                            return v.temperature;
+                                        });
+                                    })]);
+
+                                    svg.append("g")
+                                        .attr("class", "x axis")
+                                        .attr("transform", "translate(0," + height + ")")
+                                        .call(xAxis);
+
+                                    svg.append("g")
+                                        .attr("class", "y axis")
+                                        .call(yAxis)
+                                        .append("text")
+                                        .attr("transform", "rotate(-90)")
+                                        .attr("y", 6)
+                                        .attr("dy", ".71em")
+                                        .style("text-anchor", "end")
+                                        .text("Number of Satellites");
+
+                                    var city = svg.selectAll(".city")
+                                        .data(cities)
+                                        .enter().append("g")
+                                        .attr("class", "city");
+
+                                    city.append("path")
+                                        .attr("class", "line")
+                                        .attr("d", function (d) {
+                                        return line(d.values);
+                                        })
+                                        .style("stroke", function (d) {
+                                        return color(d.name);
+                                    });
+
+                                    city.append("text")
+                                        .datum(function (d) {
+                                            return {
+                                                name: d.name,
+                                                value: d.values[d.values.length - 1]
+                                            };
+                                        })
+                                        .attr("transform", function (d) {
+                                            return "translate(" + x(d.value.date) + "," + y(d.value.temperature) + ")";
+                                        })
+                                        .attr("x", 3)
+                                        .attr("dy", ".35em")
+                                        .text(function (d) {
+                                            return d.name;
+                                        });
+                                </script>
+                            </div>
+                                <div class= "methodology">Source: Union of Concerned Scientists Satellite Database <br> Data includes only satellites that are still active.<br> * Some satellites in this category are not confirmed, but highly suspected by western military, to have spy functions. </div>
+								
+
+								<p><br>As China increases its capabilities, the United States feels compelled to escalate and expand its counterspace, or offensive-defensive, space technology, said Johnson-Freese, which has already been evidenced in the United States’ military space budget and plans for coming years. In a 2013 annual report to Congress on military and security developments involving the People’s Republic of China, the U.S. Department of Defense said that the Pentagon has been monitoring China’s space activities, which show no sign of slowing. NASA and the Department of Defense did not respond to requests for comment. </p>
 							</section>
 						</div>
 					</div>
 					<header class="major">
-						<h4>But among the ambiguity, one thing is certain: the space in space is filling up, and quickly.</h4> 
+						<h4>But, one thing is certain: the space in space is filling up, and quickly.</h4> 
 					</header>
 				</div>
 			</section>			
