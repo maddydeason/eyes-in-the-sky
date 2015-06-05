@@ -114,6 +114,10 @@
 		margin-right: 2em;
 		font-size: 0.5em;
 	}
+		.mapcap {
+			font-size: .8em;
+			color: #fff;
+		}
 
 	.align-left {
 		text-align: left;
