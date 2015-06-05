@@ -4,7 +4,7 @@ Eyes in the Sky: China's Rapidly Expanding Space-based Spy Program
 
 final project for JOUR779D: Storytelling with Data Visualization
 ## Contributors
-Reporting: Madeleine Deason, Stephanie Gutierrez-Munguia, Deidre McPhillips 
+Reporting: Madeleine Deason, <a href="https://github.com/sgutie1"> Stephanie Gutierrez-Munguia</a>, Deidre McPhillips 
 <br>
 Text, Map: Deidre McPhillips 
 <br>
