@@ -13,4 +13,4 @@ Line Graph, Bar Chart: Stephanie Gutierrez-Munguia
 Timeline, Webpage: Madeleine Deason
 
 ### Live version
-< coming soon >
+http://jclass.umd.edu/eyesinthesky/
